@@ -93,7 +93,7 @@
   .nav-inner { max-width: 1200px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; gap: 28px; }
   .logo { display: inline-flex; align-items: center; gap: 10px; font-family: 'Roboto Flex', Arial, sans-serif; font-weight: 800; color: var(--navy); font-size: 18px; letter-spacing: -0.01em; }
   .logo-full { display: inline-block; height: 28px; width: auto; flex-shrink: 0; }
-  .logo-div { color: var(--grey-300); font-weight: 400; font-size: 20px; margin: 0 2px; }
+  .logo-div { color: var(--energy); font-weight: 400; font-size: 20px; margin: 0 2px; }
   .logo-brightside { display: inline-block; height: 30px; width: auto; flex-shrink: 0; }
     .nav-links { margin-left: auto; display: flex; gap: 22px; align-items: center; }
   .nav-links a { color: var(--navy); font-family: 'Inter', Arial, sans-serif; font-size: 15px; font-weight: 600; padding: 6px 0; border-bottom: 2px solid transparent; transition: color .2s, border-color .2s; }
@@ -119,7 +119,7 @@
   .btn:hover { transform: translateY(-1px); }
   .btn-primary { background: var(--grad-energy); color: var(--white); box-shadow: 0 8px 22px rgba(0,114,206,.35); }
   .btn-primary:hover { filter: brightness(1.06); }
-  .btn-green { background: var(--green); color: var(--navy); box-shadow: 0 8px 22px rgba(40,226,137,.32); }
+  .btn-green { background: var(--green); color: var(--charcoal); box-shadow: 0 8px 22px rgba(40,226,137,.32); }
   .btn-green:hover { filter: brightness(1.04); }
   .btn-ghost { background: rgba(255,255,255,.08); color: var(--white); border: 1px solid rgba(255,255,255,.3); }
   .btn-ghost:hover { background: rgba(255,255,255,.16); }
@@ -213,7 +213,7 @@
   /* Hero key points */
   .kp-list { display: grid; gap: 14px; margin-top: 4px; }
   .kp { display: flex; gap: 12px; align-items: flex-start; }
-  .kp .ic { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; margin-top: 1px; }
+  .kp .ic { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: var(--charcoal); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; margin-top: 1px; }
   .kp .kp-t { color: var(--white); font-weight: 600; font-size: 15px; }
   .kp .kp-d { color: rgba(255,255,255,.72); font-size: 13.5px; margin-top: 2px; }
 
@@ -273,6 +273,29 @@
   .nav-links a.nav-call:hover { background: var(--energy); color: var(--white); border-color: var(--energy); }
   .nav-links a.nav-call svg { display: block; width: 18px; height: 18px; }
 
+  /* Current vs future comparison table */
+  .cvf-table { border:1px solid var(--grey-200); border-radius: var(--r-lg); overflow:hidden; box-shadow: var(--shadow-sm); background: var(--white); }
+  .cvf-trow { display:grid; grid-template-columns: 0.85fr 1.5fr 1.5fr; }
+  .cvf-trow + .cvf-trow { border-top:1px solid var(--grey-200); }
+  .cvf-th { padding:13px 18px; font-family:'Roboto Flex', Arial, sans-serif; font-weight:800; font-size:13.5px; letter-spacing:.02em; }
+  .cvf-th-theme { background: var(--grey-100); }
+  .cvf-th-now { background: var(--grey-100); color: var(--grey-500); }
+  .cvf-th-fut { background: var(--navy); color: var(--white); }
+  .cvf-c { padding:15px 18px; font-size:14px; line-height:1.5; }
+  .cvf-c.theme { background: var(--grey-50); font-family:'Roboto Flex', Arial, sans-serif; font-weight:700; color: var(--navy); font-size:14.5px; display:flex; align-items:center; border-right:1px solid var(--grey-200); }
+  .cvf-c.now { color: var(--grey-500); border-right:1px solid var(--grey-200); }
+  .cvf-c.fut { color: var(--charcoal); background: rgba(40,226,137,.06); }
+  .cvf-c.fut b { color: var(--navy); font-weight:600; }
+  @media (max-width:760px){
+    .cvf-trow { grid-template-columns:1fr; }
+    .cvf-thead { display:none; }
+    .cvf-c.theme { border-right:0; background: var(--navy); color: var(--white); }
+    .cvf-c.now { border-right:0; }
+    .cvf-c.now::before { content:"Current"; display:block; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--grey-500); margin-bottom:5px; }
+    .cvf-c.fut::before { content:"With BigChange"; display:block; font-weight:700; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:#11935a; margin-bottom:5px; }
+  }
+  #savings .calc-inputs { display:none; }
+  #savings .calc { grid-template-columns:1fr; }
   footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 28px; font-size: 14px; }
   footer .f-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
   footer b { color: var(--white); font-weight: 600; }
@@ -338,64 +361,50 @@
     <div class="section-head">
       <div class="kicker">From today to BigChange</div>
       <h2>How your operation runs today, and how it runs on BigChange</h2>
-      <p>Drawn from your demo on 2 June. The left shows how the work flows today across paper, Xero and the insurer portals. The right shows the same work on one platform.</p>
+      <p>A side-by-side of how the work flows today, and how it flows on one platform.</p>
     </div>
-    <div class="cvf">
-      <div class="cvf-head">
-        <div class="col now"><span class="pill">Current</span> Paper, Xero &amp; portals</div>
-        <div class="col fut"><span class="pill">Future</span> One BigChange platform</div>
+    <div class="cvf-table">
+      <div class="cvf-trow cvf-thead">
+        <div class="cvf-th cvf-th-theme"></div>
+        <div class="cvf-th cvf-th-now">Current</div>
+        <div class="cvf-th cvf-th-fut">With BigChange</div>
       </div>
-      <div class="cvf-block">
-        <div class="cvf-theme">How jobs arrive</div>
-        <div class="cvf-pair">
-          <div class="cell now"><span class="tag">Current</span>Jobs come in by email and client portals, then office staff copy and paste them into a Toggle Kanban board by hand.</div>
-          <div class="cell fut"><span class="tag">Future</span>Jobs land in one system, no manual copy and paste, ready to schedule.</div>
-        </div>
+      <div class="cvf-trow">
+        <div class="cvf-c theme">How jobs arrive</div>
+        <div class="cvf-c now">Jobs come in by email and client portals, then office staff copy and paste them into a Toggle Kanban board by hand.</div>
+        <div class="cvf-c fut">Jobs land in one system, no manual copy and paste, ready to schedule.</div>
       </div>
-      <div class="cvf-block">
-        <div class="cvf-theme">Engineer updates &amp; photos</div>
-        <div class="cvf-pair">
-          <div class="cell now"><span class="tag">Current</span>Engineers log updates in JotForm and fire photos into WhatsApp groups, where job context floats loose.</div>
-          <div class="cell fut"><span class="tag">Future</span><b>One mobile app</b> captures updates, photos and sign-off against the right job.</div>
-        </div>
+      <div class="cvf-trow">
+        <div class="cvf-c theme">Engineer updates &amp; photos</div>
+        <div class="cvf-c now">Engineers log updates in JotForm and fire photos into WhatsApp groups, where job context floats loose.</div>
+        <div class="cvf-c fut"><b>One mobile app</b> captures updates, photos and sign-off against the right job.</div>
       </div>
-      <div class="cvf-block">
-        <div class="cvf-theme">Evidence &amp; invoicing</div>
-        <div class="cvf-pair">
-          <div class="cell now"><span class="tag">Current</span>The office spends hours at invoice time digging through WhatsApp history to compile client reports.</div>
-          <div class="cell fut"><span class="tag">Future</span>Every photo and update is <b>attached to the job</b>, so client reports come together in a few clicks.</div>
-        </div>
+      <div class="cvf-trow">
+        <div class="cvf-c theme">Evidence &amp; invoicing</div>
+        <div class="cvf-c now">The office spends hours at invoice time digging through WhatsApp history to compile client reports.</div>
+        <div class="cvf-c fut">Every photo and update is <b>attached to the job</b>, so client reports come together in a few clicks.</div>
       </div>
-      <div class="cvf-block">
-        <div class="cvf-theme">Client visibility</div>
-        <div class="cvf-pair">
-          <div class="cell now"><span class="tag">Current</span>No way for councils or contractors to see live status, which blocks tendering for larger contracts.</div>
-          <div class="cell fut"><span class="tag">Future</span>A <b>customer portal</b> where clients log in to track jobs, tenant contact and schedules.</div>
-        </div>
+      <div class="cvf-trow">
+        <div class="cvf-c theme">Client visibility</div>
+        <div class="cvf-c now">No way for councils or contractors to see live status, which blocks tendering for larger contracts.</div>
+        <div class="cvf-c fut">A <b>customer portal</b> where clients log in to track jobs, tenant contact and schedules.</div>
       </div>
-      <div class="cvf-block">
-        <div class="cvf-theme">Multi-site &amp; council work</div>
-        <div class="cvf-pair">
-          <div class="cell now"><span class="tag">Current</span>Parent and child relationships juggled by hand across many properties.</div>
-          <div class="cell fut"><span class="tag">Future</span><b>Parent and child sites</b>: invoice one, visit another, all linked.</div>
-        </div>
+      <div class="cvf-trow">
+        <div class="cvf-c theme">Multi-site &amp; council work</div>
+        <div class="cvf-c now">Parent and child relationships juggled by hand across many properties.</div>
+        <div class="cvf-c fut"><b>Parent and child sites</b>: invoice one, visit another, all linked.</div>
       </div>
-      <div class="cvf-block">
-        <div class="cvf-theme">Finance</div>
-        <div class="cvf-pair">
-          <div class="cell now"><span class="tag">Current</span>Xero sits to one side as a nice to have, with numbers re-keyed.</div>
-          <div class="cell fut"><span class="tag">Future</span><b>Two-way Xero integration</b> so invoicing flows without re-keying.</div>
-        </div>
+      <div class="cvf-trow">
+        <div class="cvf-c theme">Finance</div>
+        <div class="cvf-c now">Xero sits to one side as a nice to have, with numbers re-keyed.</div>
+        <div class="cvf-c fut"><b>Two-way Xero integration</b> so invoicing flows without re-keying.</div>
       </div>
-      <div class="cvf-block">
-        <div class="cvf-theme">Reporting &amp; comms</div>
-        <div class="cvf-pair">
-          <div class="cell now"><span class="tag">Current</span>Tenant comms over WhatsApp and VoIP with no system record, and no live data view.</div>
-          <div class="cell fut"><span class="tag">Future</span><b>White-labelled customer email, Just Ask AI</b> on your data, and the BigChange collaboration network.</div>
-        </div>
+      <div class="cvf-trow">
+        <div class="cvf-c theme">Reporting &amp; comms</div>
+        <div class="cvf-c now">Tenant comms over WhatsApp and VoIP with no system record, and no live data view.</div>
+        <div class="cvf-c fut"><b>White-labelled customer email, Just Ask AI</b> on your data, and the BigChange collaboration network.</div>
       </div>
     </div>
-    <p class="cvf-foot">Based on your demo and discovery calls. Figures and savings are quantified in the section below.</p>
   </div>
 </section>
 
@@ -404,7 +413,7 @@
     <div class="section-head">
       <div class="kicker">Calculate your savings</div>
       <h2>What BigChange could be worth to your operation</h2>
-      <p>Pre-filled with your team size and BigChange's benchmark figures. Adjust any value to see the impact update live. Based on the same model used on bigchange.com/pricing.</p>
+      <p>Pre-filled with your team size and BigChange's benchmark figures. Based on the same model used on bigchange.com/pricing.</p>
     </div>
     <div class="calc">
       <div class="calc-inputs">
